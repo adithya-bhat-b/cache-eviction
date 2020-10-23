@@ -1,11 +1,12 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from collections import OrderedDict
 
 class CacheEviction(ABC):
     def __init__(self, cache_size):
         self.cache_size = cache_size
         self.cache_sequence = OrderedDict()
-        
+    
+    @abstractmethod
     def get(self, key):
         if not self.cache_sequence.get(key, None):
             raise "Key doesn't exist."
@@ -13,6 +14,7 @@ class CacheEviction(ABC):
         self.cache_sequence[key] = value
         return value
     
+    @abstractmethod
     def state_of_cache(self):
         return self.cache_sequence
 
